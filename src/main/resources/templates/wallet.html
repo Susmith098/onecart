@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Wallet</title>
+</head>
+<body>
+<h1>Wallet Balance: <span th:text="${wallet.balance}"></span></h1>
+
+<h2>Deposit</h2>
+<form th:action="@{/wallet/deposit}" method="post">
+    <input type="number" step="0.01" name="amount" required>
+    <button type="submit">Deposit</button>
+</form>
+
+<h2>Withdraw</h2>
+<form th:action="@{/wallet/withdraw}" method="post">
+    <input type="number" step="0.01" name="amount" required>
+    <button type="submit">Withdraw</button>
+    <span th:if="${withdrawError}" th:text="${withdrawError}" style="color: red;"></span>
+</form>
+</body>
+</html>

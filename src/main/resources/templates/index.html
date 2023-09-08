@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace = "fragments :: html_head"></head>
+
+<body>
+<!--sidebar-->
+<!--<div th:replace = "fragments :: user_sidebar"></div>-->
+
+<div class="body-wrapper">
+    <!--Header-->
+    <div th:replace = "fragments :: user_header"></div>
+    <!--Header-->
+    <div class="container-fluid">
+        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+            <div class="card-body px-4 py-6">
+                <div class="row align-items-center d-flex justify-content-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">OneCart Specials</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="text-muted text-decoration-none" href="./index.html">Independence Day Offers</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Today's Deal</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-4">
+                        <div class="d-flex justify-content-center">
+                            <img th:src="@{/banner/iphone14.jpg}" alt="" class="img-fluid " src="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card position-relative overflow-hidden">
+            <div class="shop-part d-flex w-100">
+                <div class="card-body p-4 pb-0">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="fs-5 fw-semibold mb-0">Products</h5>
+                    </div>
+                    <div class="row">
+                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-4 d-flex justify-content-evenly grid gap-3">
+                            <div class="card hover-img overflow-hidden rounded-2" th:each="product : ${products}">
+                                <div class="position-relative">
+                                    <a th:href="@{/shop/viewproduct/{id}(id=${product.id})}"><img th:if="${not #lists.isEmpty(product.images)}" th:src="@{${'/productImages/' + product.images[0].imageName}}" th:alt="${product.name}" class="card-img-top rounded-0" alt="..."></a>
+                                    <a href="" th:href="@{/addToCart/{id}(id = ${product.id})}" class="bg-primary rounded-circle p-2 text-white d-inline-flex position-absolute bottom-0 end-0 mb-n3 me-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add To Cart"><i class="ti ti-basket fs-4"></i></a>
+                                </div>
+                                <div class="card-body pt-2 p-3">
+                                    <a class="text-decoration-none text-black" th:href="@{/shop/viewproduct/{id}(id=${product.id})}"><h6 class="fw-semibold fs-4" th:text="${product.name}">Card title</h6></a>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h6 class="fw-semibold fs-3 mb-0">₹ <span th:text="${product.price}"></span> <span class="ms-2 fw-normal text-muted fs-2"><del>₹345</del></span></h6>
+                                        <ul class="list-unstyled d-flex align-items-center mb-0">
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                            <li><a class="me-1" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                            <li><a class="" href="javascript:void(0)"><i class="ti ti-star text-warning"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="py-6 px-6 text-center">
+    <footer th:replace = "fragments :: footer"></footer>
+</div>
+</body>
+
+</html>

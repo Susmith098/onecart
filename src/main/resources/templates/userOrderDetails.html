@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace = "fragments :: html_head"></head>
+<body>
+
+<!--Header Starts-->
+<div th:replace = "fragments :: user_header"></div>
+
+<div class="container-fluid">
+    <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+        <div class="card-body px-4 py-6">
+            <div class="row align-items-center d-flex justify-content-center">
+<div class="col-lg-8">
+    <div class="card">
+        <div class="card-body p-4">
+            <h4 class="fw-semibold mb-3">Order Details</h4>
+            <div class="nav nav-pills p-3 mb-3 rounded card flex-row grid gap-3 bg-primary p-2 text-dark bg-opacity-10">
+                <div class="p-2 g-col-4">
+                <h5 class="fs-3 fw-medium mb-0">Order ID: <span th:text="${order.id}" class="mb-0 fw-semibold fs-2">order id</span></h5>
+                </div>
+                <div class="p-2 g-col-4">
+                    <h5 class="fs-3 fw-medium mb-0 ">Order Placed</h5>
+                    <p th:text="${order.formattedOrderDate}" class="mb-0 fs-2">date</p>
+                    <p th:text="${order.formattedOrderTime}" class="mb-0 fs-2">time</p>
+                </div>
+                <div class="p-2 g-col-4">
+                    <h5 class="fs-3 fw-medium mb-0">Total</h5>
+                    <p th:text="${order.totalAmount}" class="mb-0 fs-2">total amount</p>
+                </div>
+                <div class="p-2 g-col-4">
+                    <h5 class="fs-3 fw-medium mb-0">Payment Method</h5>
+                    <p th:text="${order.paymentMethod}" class="mb-0 fs-2">payment method</p>
+                </div>
+                <div class="p-2 g-col-4 position-absolute end-0">
+                    <a th:href="@{/orders/invoice/{orderId}(orderId=${order.id})}" th:onclick="'openInvoice(' + ${order.id} + ')'">Invoice</a>
+                </div>
+            </div>
+            <!-- Display existing status updates -->
+            <ul>
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h5 class="fs-4 fw-semibold mb-0">Order Status</h5><br/>
+                        <li th:each="statusUpdate : ${order.statusUpdates}">
+                            <p>
+                                Status: <span class="text-success" th:text="${statusUpdate.updatedStatus}"></span><br />
+                                Place Reached: <span th:text="${statusUpdate.placeReached}"></span><br />
+                                Date and Time: <span th:text="${#temporals.format(statusUpdate.updateDateTime, 'yyyy-MM-dd HH:mm:ss')}"></span><hr/>
+                            </p>
+                        </li>
+                    </div>
+                </div>
+            </ul>
+            <ul>
+                <div class="card">
+                    <div class="card-body p-4">
+                            <div class="p-2 g-col-4">
+                                <h5 class="fs-3 fw-medium mb-0">Shipping Address</h5>
+                                <p th:utext="${#strings.replace(order.shippingAddressString, ',', '<br>')}" class="mb-0 fs-2">shipping address</p>
+                            </div>
+                    </div>
+                </div>
+            </ul>
+            <ul>
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h5 class="fs-4 fw-semibold mb-0">Products</h5><br/>
+                        <li th:each="item : ${order.orderItems}">
+                            <p>
+                                Product Name: <span th:text="${item.product.name}"></span><br/>
+                                Qty: <span th:text="${item.quantity}"></span><br/><hr/>
+                            </p>
+                        </li>
+                    </div>
+                </div>
+            </ul>
+
+
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+    </div>
+</div>
+
+<div class="py-6 px-6 text-center">
+    <footer th:replace = "fragments :: footer"></footer>
+</div>
+
+<script>
+    function openInvoice(orderId) {
+        window.open('/orders/invoice/' + orderId, '_blank');
+    }
+</script>
+
+</body>
+</html>

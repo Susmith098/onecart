@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace = "fragments :: html_head"></head>
+<body>
+<!--Header-->
+<div th:replace = "fragments :: user_header"></div>
+<!--Header-->
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title fw-semibold mb-4">Add a new Product</h5>
+            <div class="card">
+                <div class="card-body">
+                    <form th:action="@{/product/addReview}" method="post">
+                        <input type="hidden" name="productId" th:value="${productId}" />
+                        <div class="mb-3">
+                            <label>Rating:</label>
+                            <div>
+                                <label class="form-check-label" th:for="rating1">
+                                    <input type="radio" class="form-check-input" id="rating1" name="rating" value="1"
+                                           required />
+                                    1&nbsp;&nbsp;&nbsp;
+                                </label>
+                                <label class="form-check-label" th:for="rating2">
+                                    <input type="radio" class="form-check-input" id="rating2" name="rating" value="2"
+                                           required />
+                                    2&nbsp;&nbsp;&nbsp;
+                                </label>
+                                <label class="form-check-label" th:for="rating3">
+                                    <input type="radio" class="form-check-input" id="rating3" name="rating" value="3"
+                                           required />
+                                    3&nbsp;&nbsp;&nbsp;
+                                </label>
+                                <label class="form-check-label" th:for="rating4">
+                                    <input type="radio" class="form-check-input" id="rating4" name="rating" value="4"
+                                           required />
+                                    4&nbsp;&nbsp;&nbsp;
+                                </label>
+                                <label class="form-check-label" th:for="rating5">
+                                    <input type="radio" class="form-check-input" id="rating5" name="rating" value="5"
+                                           required />
+                                    5&nbsp;&nbsp;&nbsp;
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="comment">Add a short review:</label>
+                            <textarea class="form-control" rows="2" name="comment" id="comment" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="reviewDate">Review Date:</label>
+                            <input type="date" class="form-control" id="reviewDate" name="reviewDate" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="detailedReview">Detailed Review:</label>
+                            <textarea class="form-control" rows="8" name="detailedReview" id="detailedReview" required></textarea>
+                        </div>
+                        <button class="btn btn-success" type="submit">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="py-6 px-6 text-center">
+    <footer th:replace = "fragments :: footer"></footer>
+</div>
+</body>
+</html>

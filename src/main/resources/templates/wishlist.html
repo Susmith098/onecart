@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Add your head content here -->
+</head>
+<body>
+<!-- Add your navigation and other elements here -->
+
+<div class="container mt-4">
+    <h2>Your Wishlist</h2>
+    <ul>
+        <li th:each="item : ${wishlistItems}">
+            <span th:text="${item.product.name}"></span>
+            <form th:action="@{/wishlist/remove}" method="post">
+                <input type="hidden" name="wishlistItemId" th:value="${item.id}" />
+                <button type="submit">Remove</button>
+            </form>
+        </li>
+    </ul>
+</div>
+
+<!-- Add your footer and other elements here -->
+</body>
+</html>
